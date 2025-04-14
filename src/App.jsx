@@ -1,8 +1,8 @@
 import { useState } from "react";
-import ExpenseForm from "./components/ExpenseForm";
-import ExpenseTable from "./components/ExpenseTable";
-import SearchBar from "./components/SearchBar";
-
+import Form from "./components/Form";
+import Table from "./components/Table";
+import Search from "./components/Search";
+import { ToastContainer,toast } from "react-toastify";
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,29 +29,31 @@ setExpenses(sortedData);
 const handleDelete=(indexToDelete)=>{
     const updatedData=expenses.filter((_,index)=>index!==indexToDelete);
     setExpenses(updatedData);
-    
+    toast.success("Expense has beeen deleted")
 }
   return (
-    <div className="App">
-      <h1>Expense Tracker 💸</h1>
-      <p>Start taking control of your finances and life,Record,Categorize and analyze your spending</p>
-      <div className="main-layout">
-        <br />
-      <div className="left-column">
-        </div>
-      <div className="middle-column">
-       <ExpenseForm onAddExpense={handleAddExpense} />
-        </div>
-        <div className="right-column">
-        <SearchBar searchTerm={searchTerm} onSearch={setSearchTerm} /><br /><br />
-          <ExpenseTable
-            expenses={filteredExpenses}
-            onSort={sortBy}
-            onDelete={handleDelete}
-          />
-        </div>
-      </div>
+    <div className="p-6 text-black">
+      <ToastContainer/>
+  <h1 className="text-3xl font-bold mb-2">Expense Tracker</h1>
+  <p className="mb-4 text-gray-600">
+    Track Your Spending Anytime.
+  </p>
+
+  <div className='grid grid-cols-3 gap-6'>
+    <div className='col-span-1 border p-4 bg-white rounded-lg shadow'>
+      <Form onAddExpense={handleAddExpense} />
     </div>
+    <div className="col-span-2 p-4 bg-white rounded-lg shadow">
+      <Search searchTerm={searchTerm} onSearch={setSearchTerm} />
+      <br />
+      <Table
+        expenses={filteredExpenses}
+        onSort={sortBy}
+        onDelete={handleDelete}
+      />
+    </div>
+  </div>
+</div>
   );
 }
 
