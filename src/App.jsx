@@ -12,7 +12,7 @@ function App() {
     setExpenses([...expenses, newExpense]);
   };
   
-//The search function(predictate function)
+//The search function
 const filteredExpenses=expenses.filter((expense)=>{
 return expense.expenseName.toLowerCase().includes(searchTerm.toLowerCase()) ||  expense.description.toLowerCase().includes(searchTerm.toLowerCase());
 });
